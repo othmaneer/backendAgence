@@ -54,6 +54,11 @@ public class FactureServiceImpl implements FactureService{
     }
 
     @Override
+    public Facture findFacture(int id) {
+        return factureRepository.findById(id).get();
+    }
+
+    @Override
     public Page<Facture> allFacturePages(int pagenumber, int pagesize) {
         Pageable pageable = PageRequest.of(pagenumber, pagesize);
         return factureRepository.findAll(pageable);

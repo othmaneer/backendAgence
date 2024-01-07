@@ -15,6 +15,8 @@ public interface FactureService {
     public boolean supprimerFacture(int id);
 
     public List<Facture> listFacture();
+
+    public Facture findFacture(int id);
     public Page<Facture> allFacturePages(int pagenumber, int pagesize  );
 
 }

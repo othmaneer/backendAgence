@@ -24,14 +24,16 @@ public class ReservationServiceImpl implements ReservationService{
     FactureRepository factureRepository;
 
     Facture facture = new Facture();
+
     @Override
     public Reservation ajouterReservation(Reservation reservation) {
-        reservationRepository.save(reservation);
-        facture.setReservation(reservation);
-        facture.setNom();
+         reservationRepository.save(reservation);
+         Reservation findRes= reservationRepository.findById(reservation.getIdReservation()).get();
+        facture.setReservation(findRes);
         facture.setTotal();
+        facture.setNom();
         factureRepository.save(facture);
-return reservation;
+        return reservation;
     }
 
     @Override
@@ -57,9 +59,12 @@ return reservation;
     @Override
     public boolean supprimerReservation(int id) {
         Optional<Reservation> resultat= reservationRepository.findById(id);
-        if (resultat.isPresent())
-        {
+
+        Optional<Facture> facture1= factureRepository.findFactureByReservationId(id);
+        if (resultat.isPresent() )
+        { Facture facture2 = factureRepository.findFactureByReservationId(id).get();
             reservationRepository.deleteById(id);
+            //factureRepository.deleteById(facture2.getIdFacture());
             return true;
         }
 

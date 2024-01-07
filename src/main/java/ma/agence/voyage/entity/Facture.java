@@ -15,7 +15,7 @@ public class Facture {
     private String nom;
 
     private double total;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Reservation reservation;
 
     public int getIdFacture() {
@@ -55,18 +55,7 @@ public class Facture {
 
         long differenceInDays = ChronoUnit.DAYS.between(datedb, datedf);
 
-        System.out.println("diff days: "+ differenceInDays +" date_db"+
-                datedb +" date_df"+datedf + " client: "+ reservation.getClient().getNom()
-                + "\n| hotel prix | "+ reservation.getHotel().getPrix()
-                + "\n hotel nom "+ reservation.getHotel().getNom()
-                + "\n | hotel prix |"+ reservation.getHotel().getPrix()
-                + "\n | hotel id |"+ reservation.getHotel().getIdHotel()
-                + "\n | hotel car |"+ reservation.getHotel().getCaracteristique()
-                + "\n | hotel obj |"+ reservation.getHotel().toString()
 
-
-
-        );
 
         if(differenceInDays ==0)
         {
