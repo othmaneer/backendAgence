@@ -1,8 +1,10 @@
 package ma.agence.voyage.controller;
 
+import ma.agence.voyage.entity.Client;
 import ma.agence.voyage.entity.Hotel;
 import ma.agence.voyage.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,9 +48,16 @@ public class HotelController {
     }
 
     @GetMapping("/all")
-    public List<Hotel> listeEncadrant()
+    public List<Hotel> listeHotel()
     {
         return hotelService.listHotel();
+    }
+
+    @GetMapping("/all/{pagenumber}/{pagesize}")
+    public Page<Hotel> hotelsPages(@PathVariable int pagenumber, @PathVariable int pagesize)
+    {
+        return hotelService.AllHotelsPaginations(pagenumber, pagesize);
+
     }
 
 }

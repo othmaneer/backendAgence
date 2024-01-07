@@ -1,8 +1,10 @@
 package ma.agence.voyage.controller;
 
+import ma.agence.voyage.entity.Client;
 import ma.agence.voyage.entity.Reservation;
 import ma.agence.voyage.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reservation")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ReservationController {
     @Autowired
     ReservationService reservationService;
+
 
     @PostMapping("/ajouter")
     public ResponseEntity<Reservation> ajouterReservation(@RequestBody Reservation reservation)
@@ -51,4 +54,10 @@ public class ReservationController {
         return reservationService.listReservation();
     }
 
+    @GetMapping("/all/{pagenumber}/{pagesize}")
+    public Page<Reservation> clientsPages(@PathVariable int pagenumber, @PathVariable int pagesize)
+    {
+        return reservationService.allReservationPagePaginations(pagenumber, pagesize);
+
+    }
 }

@@ -1,8 +1,10 @@
 package ma.agence.voyage.controller;
 
+import ma.agence.voyage.entity.Destination;
 import ma.agence.voyage.entity.Facture;
 import ma.agence.voyage.service.FactureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +51,13 @@ public class FactureController {
     public List<Facture> listeEncadrant()
     {
         return factureService.listFacture();
+    }
+
+    @GetMapping("/all/{pagenumber}/{pagesize}")
+    public Page<Facture> clientsPages(@PathVariable int pagenumber, @PathVariable int pagesize)
+    {
+        return factureService.allFacturePages(pagenumber, pagesize);
+
     }
 
 }

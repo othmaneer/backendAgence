@@ -1,8 +1,12 @@
 package ma.agence.voyage.service;
 
+import ma.agence.voyage.entity.Client;
 import ma.agence.voyage.entity.Hotel;
 import ma.agence.voyage.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +53,11 @@ public class HotelServiceImpl implements HotelService{
     @Override
     public List<Hotel> listHotel() {
         return hotelRepository.findAll();
+    }
+
+    @Override
+    public Page<Hotel> AllHotelsPaginations(int pagenumber, int pagesize) {
+        Pageable pageable = PageRequest.of(pagenumber, pagesize);
+        return hotelRepository.findAll(pageable);
     }
 }

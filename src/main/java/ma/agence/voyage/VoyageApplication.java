@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class VoyageApplication {
 
 	public static void main(String[] args) {

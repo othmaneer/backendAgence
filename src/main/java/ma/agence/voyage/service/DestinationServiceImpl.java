@@ -3,6 +3,9 @@ package ma.agence.voyage.service;
 import ma.agence.voyage.entity.Destination;
 import ma.agence.voyage.repository.DestinationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +51,11 @@ public class DestinationServiceImpl implements DestinationService{
     @Override
     public List<Destination> listDestination() {
         return destinationRepository.findAll();
+    }
+
+    @Override
+    public Page<Destination> allDestinationsPaginations(int pagenumber, int pagesize) {
+        Pageable pageable = PageRequest.of(pagenumber, pagesize);
+        return destinationRepository.findAll(pageable);
     }
 }

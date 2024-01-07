@@ -1,6 +1,7 @@
 package ma.agence.voyage.service;
 
 import ma.agence.voyage.entity.Client;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface ClientService {
     public boolean supprimerClient(int id);
 
     public List<Client> listClient();
+    public Page<Client> AllClitentsPaginations(int pagenumber, int pagesize  );
 }

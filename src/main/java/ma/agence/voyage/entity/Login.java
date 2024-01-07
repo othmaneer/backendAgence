@@ -1,0 +1,20 @@
+package ma.agence.voyage.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Login {
+    @Id
+    @GeneratedValue
+    int idAdmin;
+    String username;
+    String mdp;
+}

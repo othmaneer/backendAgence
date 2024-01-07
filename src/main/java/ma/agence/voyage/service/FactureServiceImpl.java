@@ -3,6 +3,9 @@ package ma.agence.voyage.service;
 import ma.agence.voyage.entity.Facture;
 import ma.agence.voyage.repository.FactureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class FactureServiceImpl implements FactureService{
     FactureRepository factureRepository;
     @Override
     public Facture ajouterFacture(Facture facture) {
+        facture.setTotal();
         return factureRepository.save(facture);
     }
 
@@ -25,9 +29,7 @@ public class FactureServiceImpl implements FactureService{
         if (resultat.isPresent())
         {
             Facture facture1 = resultat.get();
-            facture1.setNom(facture.getNom());
-            facture1.setClient(facture.getClient());
-            facture1.setTotal(facture.getTotal());
+            facture1.setReservation(facture.getReservation());
             return factureRepository.save(facture1);
         }
 
@@ -49,5 +51,11 @@ public class FactureServiceImpl implements FactureService{
     @Override
     public List<Facture> listFacture() {
         return factureRepository.findAll();
+    }
+
+    @Override
+    public Page<Facture> allFacturePages(int pagenumber, int pagesize) {
+        Pageable pageable = PageRequest.of(pagenumber, pagesize);
+        return factureRepository.findAll(pageable);
     }
 }

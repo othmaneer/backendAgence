@@ -1,8 +1,13 @@
 package ma.agence.voyage.service;
 
+import ma.agence.voyage.entity.Facture;
 import ma.agence.voyage.entity.Reservation;
+import ma.agence.voyage.repository.FactureRepository;
 import ma.agence.voyage.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +19,19 @@ public class ReservationServiceImpl implements ReservationService{
     
     @Autowired
     ReservationRepository reservationRepository;
+
+    @Autowired
+    FactureRepository factureRepository;
+
+    Facture facture = new Facture();
     @Override
     public Reservation ajouterReservation(Reservation reservation) {
-        return reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
+        facture.setReservation(reservation);
+        facture.setNom();
+        facture.setTotal();
+        factureRepository.save(facture);
+return reservation;
     }
 
     @Override
@@ -32,7 +47,6 @@ public class ReservationServiceImpl implements ReservationService{
             reservation1.setHotel(reservation.getHotel());
             reservation1.setTransports(reservation.getTransports());
             reservation1.setStatus(reservation.getStatus());
-            reservation1.setFacture(reservation.getFacture());
 
             return reservationRepository.save(reservation1);
         }
@@ -55,5 +69,11 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public List<Reservation> listReservation() {
         return reservationRepository.findAll();
+    }
+
+    @Override
+    public Page<Reservation> allReservationPagePaginations(int pagenumber, int pagesize) {
+        Pageable pageable = PageRequest.of(pagenumber, pagesize);
+        return reservationRepository.findAll(pageable);
     }
 }

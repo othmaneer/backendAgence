@@ -1,8 +1,10 @@
 package ma.agence.voyage.controller;
 
+import ma.agence.voyage.entity.Hotel;
 import ma.agence.voyage.entity.Transport;
 import ma.agence.voyage.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transport")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class TransportController {
     @Autowired
     TransportService transportService;
@@ -49,6 +51,13 @@ public class TransportController {
     public List<Transport> listeEncadrant()
     {
         return transportService.listTransport();
+    }
+
+    @GetMapping("/all/{pagenumber}/{pagesize}")
+    public Page<Transport> transportPage(@PathVariable int pagenumber, @PathVariable int pagesize)
+    {
+        return transportService.allTransportsPaginations(pagenumber, pagesize);
+
     }
 
 }

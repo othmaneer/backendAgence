@@ -14,15 +14,10 @@ public class Reservation {
     private LocalDate date_fin;
 
     private String status;
-    @ManyToMany
-    @JoinTable(
-            name = "reservation_transport",
-            joinColumns = @JoinColumn(name = "idReservation"),
-            inverseJoinColumns = @JoinColumn(name = "idTransport")
-    )
-    private List<Transport> transports;
-    @OneToOne
-    private Facture facture;
+
+    @ManyToOne
+    private Transport transports;
+
 
     @ManyToOne
     private Hotel hotel;
@@ -63,13 +58,7 @@ public class Reservation {
         this.status = status;
     }
 
-    public Facture getFacture() {
-        return facture;
-    }
 
-    public void setFacture(Facture facture) {
-        this.facture = facture;
-    }
 
     public Hotel getHotel() {
         return hotel;
@@ -87,13 +76,7 @@ public class Reservation {
         this.client = client;
     }
 
-    public List<Transport> getTransports() {
-        return transports;
-    }
 
-    public void setTransports(List<Transport> transports) {
-        this.transports = transports;
-    }
 
     public Destination getDestination() {
         return destination;
@@ -103,5 +86,11 @@ public class Reservation {
         this.destination = destination;
     }
 
+    public Transport getTransports() {
+        return transports;
+    }
 
+    public void setTransports(Transport transports) {
+        this.transports = transports;
+    }
 }

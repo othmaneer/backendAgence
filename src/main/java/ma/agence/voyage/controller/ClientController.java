@@ -3,6 +3,7 @@ package ma.agence.voyage.controller;
 import ma.agence.voyage.entity.Client;
 import ma.agence.voyage.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,9 +47,16 @@ public class ClientController {
     }
 
     @GetMapping("/all")
-    public List<Client> listeEncadrant()
+    public List<Client> listeClient()
     {
         return clientService.listClient();
+    }
+
+    @GetMapping("/all/{pagenumber}/{pagesize}")
+    public Page<Client> clientsPages(@PathVariable int pagenumber, @PathVariable int pagesize)
+    {
+        return clientService.AllClitentsPaginations(pagenumber, pagesize);
+
     }
 
 
