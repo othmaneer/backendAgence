@@ -13,4 +13,13 @@ import java.util.Optional;
 public interface FactureRepository extends JpaRepository<Facture, Integer> {
     @Query("SELECT f FROM Facture f WHERE f.reservation.idReservation = :id")
     Optional<Facture> findFactureByReservationId(@Param("id") int id);
+
+    @Query
+      ("SELECT SUM(f.total) FROM Facture f JOIN Reservation r ON f.reservation.idReservation = r.idReservation")
+    Double sumTotalByReservation();
+
+    @Query
+            ("SELECT SUM(f.total) FROM Facture f JOIN Reservation r ON f.reservation.idReservation = r.idReservation WHERE r.status = 'Payée'")
+    Double sumTotalByReservationAndStatus();
+
 }

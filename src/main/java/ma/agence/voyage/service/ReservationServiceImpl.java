@@ -23,11 +23,13 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     FactureRepository factureRepository;
 
-    Facture facture = new Facture();
+
 
     @Override
     public Reservation ajouterReservation(Reservation reservation) {
          reservationRepository.save(reservation);
+        Facture facture = new Facture();
+        System.out.println("save facture, id res: "+ reservation.getIdReservation());
          Reservation findRes= reservationRepository.findById(reservation.getIdReservation()).get();
         facture.setReservation(findRes);
         facture.setTotal();
@@ -80,5 +82,35 @@ public class ReservationServiceImpl implements ReservationService{
     public Page<Reservation> allReservationPagePaginations(int pagenumber, int pagesize) {
         Pageable pageable = PageRequest.of(pagenumber, pagesize);
         return reservationRepository.findAll(pageable);
+    }
+
+    @Override
+    public long resNonPayee() {
+        return reservationRepository.countByStatus("Non payée");
+    }
+
+    @Override
+    public long resPayee() {
+        return reservationRepository.countByStatus("Payée");
+    }
+
+    @Override
+    public  List<Object[]> resParStatus() {
+        return reservationRepository.countByStatusGrouped();
+    }
+
+    @Override
+    public List<Object[]> chiffreDaffParmois() {
+        return reservationRepository.sumTotalByMonth();
+    }
+
+    @Override
+    public List<Object[]> chiffreDaffParmoisNet() {
+        return reservationRepository.sumTotalByMonthNet();
+    }
+
+    @Override
+    public List<Object[]> nombreResParType() {
+        return reservationRepository.nombreResParType();
     }
 }

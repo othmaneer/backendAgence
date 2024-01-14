@@ -58,6 +58,12 @@ public class ClientController {
         return clientService.AllClitentsPaginations(pagenumber, pagesize);
 
     }
+    @GetMapping("/nb")
+    public Long nbrClient()
+    {
+        return clientService.nbrClient();
+    }
+
 
 
 }

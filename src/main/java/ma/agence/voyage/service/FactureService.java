@@ -1,9 +1,7 @@
 package ma.agence.voyage.service;
 
-import ma.agence.voyage.entity.Destination;
 import ma.agence.voyage.entity.Facture;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,5 +16,8 @@ public interface FactureService {
 
     public Facture findFacture(int id);
     public Page<Facture> allFacturePages(int pagenumber, int pagesize  );
+
+    public double totalFactureBrut();
+    public double totalFactureNet();
 
 }

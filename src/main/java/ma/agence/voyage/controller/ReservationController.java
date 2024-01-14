@@ -60,4 +60,41 @@ public class ReservationController {
         return reservationService.allReservationPagePaginations(pagenumber, pagesize);
 
     }
+
+    @GetMapping("/payee")
+    public long resPayee()
+    {
+        return reservationService.resPayee();
+    }
+
+    @GetMapping("/nonPayee")
+    public long resNonPayee()
+    {
+        return reservationService.resNonPayee();
+    }
+
+    @GetMapping("/resParStatus")
+    public  List<Object[]> resParStatus()
+    {
+        return reservationService.resParStatus();
+    }
+
+    @GetMapping("/chiffreMois")
+    public  List<Object[]> resChiffreParMois()
+    {
+        return reservationService.chiffreDaffParmois();
+    }
+
+    @GetMapping("/chiffreMoisNet")
+    public  List<Object[]> resChiffreParMoisNet()
+    {
+        return reservationService.chiffreDaffParmoisNet();
+    }
+
+    @GetMapping("/nbResParType")
+    public  List<Object[]> nombreResParType()
+    {
+        return reservationService.nombreResParType();
+    }
+
 }

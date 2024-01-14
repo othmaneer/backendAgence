@@ -61,4 +61,9 @@ public class ClientServiceImpl implements ClientService {
         Pageable pageable = PageRequest.of(pagenumber, pagesize);
         return clientRepository.findAll(pageable);
     }
+
+    @Override
+    public Long nbrClient() {
+        return clientRepository.count();
+    }
 }

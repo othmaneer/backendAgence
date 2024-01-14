@@ -19,6 +19,7 @@ public class FactureServiceImpl implements FactureService{
     FactureRepository factureRepository;
     @Override
     public Facture ajouterFacture(Facture facture) {
+        System.out.println("save facture");
         facture.setTotal();
         return factureRepository.save(facture);
     }
@@ -62,5 +63,15 @@ public class FactureServiceImpl implements FactureService{
     public Page<Facture> allFacturePages(int pagenumber, int pagesize) {
         Pageable pageable = PageRequest.of(pagenumber, pagesize);
         return factureRepository.findAll(pageable);
+    }
+
+    @Override
+    public double totalFactureBrut() {
+        return factureRepository.sumTotalByReservation();
+    }
+
+    @Override
+    public double totalFactureNet() {
+        return factureRepository.sumTotalByReservationAndStatus();
     }
 }

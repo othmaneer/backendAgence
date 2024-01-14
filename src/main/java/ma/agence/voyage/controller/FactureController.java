@@ -92,4 +92,16 @@ public class FactureController {
         }
     }
 
+    @GetMapping("/brut")
+    public double factureBrut()
+    {
+        return factureService.totalFactureBrut();
+    }
+
+    @GetMapping("/net")
+    public double factureNet()
+    {
+        return factureService.totalFactureNet();
+    }
+
 }

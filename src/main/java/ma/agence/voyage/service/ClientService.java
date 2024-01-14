@@ -14,4 +14,6 @@ public interface ClientService {
 
     public List<Client> listClient();
     public Page<Client> AllClitentsPaginations(int pagenumber, int pagesize  );
+
+    public Long nbrClient();
 }
